@@ -14,7 +14,6 @@
 
 @interface ViewController ()
 {
-    __weak IBOutlet UITableView *table;
     __weak IBOutlet UIView *line;
     __weak IBOutlet UIScrollView *scollView;
 }
@@ -36,10 +35,6 @@
     //添加刷新控件
     [scollView addRefreshWithBlock:^{
         NSLog(@"刷新");
-    }];
-    
-    [table addRefreshWithBlock:^{
-        NSLog(@"刷新3");
     }];
 }
 
