@@ -59,16 +59,9 @@
                                                 <rect key="frame" x="0.0" y="1" width="561" height="1"/>
                                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             </view>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Created by 刘呵呵" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IV0-iA-BCS">
-                                                <rect key="frame" x="94" y="459" width="140" height="21"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="IV0-iA-BCS" secondAttribute="bottom" constant="24" id="FuG-sP-JPz"/>
                                             <constraint firstItem="99s-DD-K5H" firstAttribute="top" secondItem="dGw-Ax-nx7" secondAttribute="top" constant="8" id="OPW-Gg-QOv"/>
                                             <constraint firstItem="UDO-ab-egk" firstAttribute="top" secondItem="dGw-Ax-nx7" secondAttribute="top" constant="30" id="Vin-l8-nwV"/>
                                             <constraint firstAttribute="trailing" secondItem="UDO-ab-egk" secondAttribute="trailing" id="hWr-aQ-YyK"/>
@@ -88,7 +81,7 @@
                                 </constraints>
                             </scrollView>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CGG-Fq-EqN">
-                                <rect key="frame" x="115" y="267" width="90" height="35"/>
+                                <rect key="frame" x="115" y="244" width="90" height="35"/>
                                 <color key="backgroundColor" red="1" green="0.44993157499999997" blue="0.053027900820000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="90" id="AZI-eb-0Jd"/>
@@ -106,15 +99,22 @@
                                     <action selector="endRefresh:" destination="fxk-We-wcS" eventType="touchUpInside" id="4W7-BL-wFy"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Created by 刘呵呵" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IV0-iA-BCS">
+                                <rect key="frame" x="90" y="525" width="140" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="IV0-iA-BCS" firstAttribute="centerX" secondItem="8Qa-w9-7KS" secondAttribute="centerX" id="0Ba-1d-5fl"/>
                             <constraint firstAttribute="trailingMargin" secondItem="egd-z5-h8M" secondAttribute="trailing" constant="-20" id="Emx-Sh-EHU"/>
-                            <constraint firstItem="CGG-Fq-EqN" firstAttribute="centerX" secondItem="8Qa-w9-7KS" secondAttribute="centerX" id="Mj1-GQ-zbv"/>
+                            <constraint firstItem="qQq-Qw-Qvo" firstAttribute="top" secondItem="IV0-iA-BCS" secondAttribute="bottom" constant="22" id="LHl-AZ-ja4"/>
                             <constraint firstItem="egd-z5-h8M" firstAttribute="top" secondItem="ahT-YE-at8" secondAttribute="bottom" id="Oi3-gY-4T5"/>
                             <constraint firstItem="qQq-Qw-Qvo" firstAttribute="top" secondItem="egd-z5-h8M" secondAttribute="bottom" id="Ryl-i2-ctd"/>
-                            <constraint firstItem="IV0-iA-BCS" firstAttribute="centerX" secondItem="8Qa-w9-7KS" secondAttribute="centerX" id="S72-Yg-hsH"/>
-                            <constraint firstItem="CGG-Fq-EqN" firstAttribute="centerY" secondItem="8Qa-w9-7KS" secondAttribute="centerY" id="kpE-7m-WbS"/>
+                            <constraint firstItem="CGG-Fq-EqN" firstAttribute="centerX" secondItem="8Qa-w9-7KS" secondAttribute="centerX" id="TdS-3K-k2X"/>
+                            <constraint firstItem="CGG-Fq-EqN" firstAttribute="top" secondItem="ahT-YE-at8" secondAttribute="bottom" constant="180" id="fAX-BX-s3J"/>
                             <constraint firstItem="egd-z5-h8M" firstAttribute="leading" secondItem="8Qa-w9-7KS" secondAttribute="leadingMargin" constant="-20" id="yT9-PI-tlF"/>
                         </constraints>
                     </view>

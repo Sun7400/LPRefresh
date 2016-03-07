@@ -14,6 +14,7 @@
 
 @class LPRefreshIndicator;
 
+// UIScrollView延展，UITableView也可用
 @interface UIScrollView (LPRefresh)
 
 //刷新主件
