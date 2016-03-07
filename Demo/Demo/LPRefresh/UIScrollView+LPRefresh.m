@@ -95,11 +95,6 @@ static char LPRefreshIndicatorKey;
     [self removeObserver:self forKeyPath:KEY_PATH context:nil];
 }
 
-#pragma mark - 刷新
-- (void)refresh
-{
-    
-}
 
 #pragma mark - 结束刷新
 - (void)endRefreshing

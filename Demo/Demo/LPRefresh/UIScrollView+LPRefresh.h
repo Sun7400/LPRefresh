@@ -22,8 +22,6 @@
 ///添加刷新事件
 - (void)addRefreshWithBlock:(void (^)())block;
 
-///刷新
-- (void)refresh;
 ///结束刷新
 - (void)endRefreshing;
 
