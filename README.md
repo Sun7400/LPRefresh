@@ -5,6 +5,7 @@
 
 ####初始化
 ```objc 
+// UIScrollView延展，UITableView也可用
 @interface UIScrollView (LPRefresh)
 ///添加刷新事件
 - (void)addRefreshWithBlock:(void (^)())block;
