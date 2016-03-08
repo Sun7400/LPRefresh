@@ -12,4 +12,9 @@
 
 ####结束刷新
 
-    - (void)endRefreshing;
+```objc
+    ///刷新成功
+    - (void)endRefreshingSuccess;
+    ///刷新失败
+    - (void)endRefreshingFail;
+```
