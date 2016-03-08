@@ -15,6 +15,7 @@
 		5D4D95FC1C8D5B5400019515 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5D4D95FA1C8D5B5400019515 /* LaunchScreen.storyboard */; };
 		5D4D960F1C8D5BC100019515 /* LPRefresh.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5D4D96091C8D5BC100019515 /* LPRefresh.bundle */; };
 		5D4D96101C8D5BC100019515 /* UIScrollView+LPRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D4D960C1C8D5BC100019515 /* UIScrollView+LPRefresh.m */; };
+		5D532BE21C8E715B003F3D7D /* LPRefreshIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D532BE11C8E715B003F3D7D /* LPRefreshIndicator.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,8 @@
 		5D4D960A1C8D5BC100019515 /* LPRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPRefresh.h; sourceTree = "<group>"; };
 		5D4D960B1C8D5BC100019515 /* UIScrollView+LPRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+LPRefresh.h"; sourceTree = "<group>"; };
 		5D4D960C1C8D5BC100019515 /* UIScrollView+LPRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+LPRefresh.m"; sourceTree = "<group>"; };
+		5D532BE01C8E715B003F3D7D /* LPRefreshIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPRefreshIndicator.h; sourceTree = "<group>"; };
+		5D532BE11C8E715B003F3D7D /* LPRefreshIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPRefreshIndicator.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +96,8 @@
 				5D4D960A1C8D5BC100019515 /* LPRefresh.h */,
 				5D4D960B1C8D5BC100019515 /* UIScrollView+LPRefresh.h */,
 				5D4D960C1C8D5BC100019515 /* UIScrollView+LPRefresh.m */,
+				5D532BE01C8E715B003F3D7D /* LPRefreshIndicator.h */,
+				5D532BE11C8E715B003F3D7D /* LPRefreshIndicator.m */,
 			);
 			path = LPRefresh;
 			sourceTree = "<group>";
@@ -168,6 +173,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5D532BE21C8E715B003F3D7D /* LPRefreshIndicator.m in Sources */,
 				5D4D96101C8D5BC100019515 /* UIScrollView+LPRefresh.m in Sources */,
 				5D4D95F41C8D5B5400019515 /* ViewController.m in Sources */,
 				5D4D95F11C8D5B5400019515 /* AppDelegate.m in Sources */,
