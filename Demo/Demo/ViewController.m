@@ -34,7 +34,7 @@
     
     //添加刷新控件
     [scollView addRefreshWithBlock:^{
-        NSLog(@"刷新");
+        NSLog(@"开始刷新");
     }];
 }
 

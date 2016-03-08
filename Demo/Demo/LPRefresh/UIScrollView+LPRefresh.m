@@ -53,18 +53,21 @@ static char LPRefreshIndicatorKey;
 #pragma mark - 添加刷新事件
 - (void)addRefreshWithBlock:(void (^)())block
 {
+    self.delaysContentTouches = NO;
+    
     //刷新主件
     self.indicator = [LPRefreshIndicator new];
     CGRect frame = self.indicator.frame;
     frame.origin.y = -frame.size.height;
     frame.size.width = self.bounds.size.width;
     self.indicator.frame = frame;
+    self.indicator.refreshBlock = block;
     
     //添加观察者，监听contentOffset
     [self addObserver:self
            forKeyPath:KEY_PATH
               options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld
-              context:(__bridge void * _Nullable)(block)];
+              context:nil];
 }
 
 //监听实现
@@ -72,20 +75,12 @@ static char LPRefreshIndicatorKey;
 {
     if ([keyPath isEqualToString:KEY_PATH]) {
         //获取offset
-        CGPoint newPoint, oldPoint;
+        CGPoint newPoint;
         [change[@"new"] getValue:&newPoint];
-        [change[@"old"] getValue:&oldPoint];
         CGFloat new = -newPoint.y;
-        CGFloat old = -oldPoint.y;
         
         //下拉进度
         if (new >= 0) self.indicator.pullProgress = new;
-        
-        //开始刷新
-        if (new>=MinHeight && old<MaxHeight) {
-            void (^block)() = (__bridge void (^)())(context);
-            if (block) block();
-        }
     }
 }
 
@@ -94,6 +89,15 @@ static char LPRefreshIndicatorKey;
 {
     [self removeObserver:self forKeyPath:KEY_PATH context:nil];
 }
+
+//- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+//{
+//    if (self.indicator.refreshing) {
+//        CGPoint offset = self.contentOffset;
+//        offset.y = -MinHeight;
+//        [self setContentOffset:offset animated:YES];//滚动
+//    }
+//}
 
 
 #pragma mark - 结束刷新

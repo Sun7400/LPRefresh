@@ -17,21 +17,12 @@
 #define MaxHeight 90
 
 @interface LPRefreshIndicator : UIView
-{
-    //绘制视图
-    CALayer *drawLayer;
-    //指示器
-    UIActivityIndicatorView *indicatorView;
-    //提示标签
-    UILabel *capionLabel;
-    //执行控制
-    BOOL shouldDo;
-}
 
-///状态
-@property (assign, nonatomic) BOOL refreshing;
 ///下拉进度
 @property (assign, nonatomic) CGFloat pullProgress;
+
+///刷新执行
+@property (strong, nonatomic) void (^refreshBlock)();
 
 ///刷新结果
 - (void)refreshSuccess:(BOOL)isSuccess;
