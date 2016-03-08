@@ -82,7 +82,7 @@ static char LPRefreshIndicatorKey;
         if (new >= 0) self.indicator.pullProgress = new;
         
         //开始刷新
-        if (new>=self.indicator.maxHeight && old<self.indicator.maxHeight) {
+        if (new>=MinHeight && old<MaxHeight) {
             void (^block)() = (__bridge void (^)())(context);
             if (block) block();
         }

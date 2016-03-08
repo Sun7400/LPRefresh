@@ -11,6 +11,11 @@
 
 #import <UIKit/UIkit.h>
 
+///最小高度
+#define MinHeight 36
+///最大高度，即开始刷新的高度
+#define MaxHeight 90
+
 @interface LPRefreshIndicator : UIView
 {
     //绘制视图
@@ -19,12 +24,9 @@
     UIActivityIndicatorView *indicatorView;
     //提示标签
     UILabel *capionLabel;
+    //执行控制
+    BOOL shouldDo;
 }
-
-///最小高度
-@property (assign, nonatomic, readonly) CGFloat minHeight;
-///最大高度，即开始刷新的高度
-@property (assign, nonatomic, readonly) CGFloat maxHeight;
 
 ///状态
 @property (assign, nonatomic) BOOL refreshing;

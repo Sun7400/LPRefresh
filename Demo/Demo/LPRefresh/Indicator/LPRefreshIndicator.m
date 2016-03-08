@@ -22,8 +22,9 @@ const NSTimeInterval LPRefreshAnimateDuration = 0.5;
 - (void)setRefreshing:(BOOL)refreshing
 {
     if (refreshing && !_refreshing) {
-        //回弹动画
-        [self animateHeight:self.maxHeight time:0.0005];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self refreshSuccess:YES];
+        });
     }
     _refreshing = refreshing;
 }
@@ -52,11 +53,12 @@ const NSTimeInterval LPRefreshAnimateDuration = 0.5;
     capionLabel.attributedText = attrString;
     
     //结束动画
-    self.refreshing = NO;
     [indicatorView stopAnimating];
     [UIView animateWithDuration:0.6 animations:^{
         capionLabel.alpha = 1;
     } completion:^(BOOL finished) {
+        self.refreshing = NO;
+        shouldDo = YES;
         [self superviewScrollTo:0];//滚动到顶部
     }];
 }
@@ -67,37 +69,39 @@ const NSTimeInterval LPRefreshAnimateDuration = 0.5;
     CGRect frame = self.frame;
     if (!self.refreshing) {
         //①开始拖出
-        if (pullProgress <= self.minHeight) {
-            if (pullProgress > _pullProgress) {
+        if (pullProgress <= MinHeight) {
+            if (_pullProgress <= 0) {
+                shouldDo = YES;
                 capionLabel.alpha = 0;
-                [self drawHeight:self.minHeight isBack:NO];
+                [self drawHeight:MinHeight isBack:NO];
             }
         }
         //②拉伸阶段
-        else if (pullProgress < self.maxHeight) {
+        else if (pullProgress < MaxHeight) {
             frame.size.height = pullProgress;
             frame.origin.y = -frame.size.height;
             [self drawHeight:pullProgress isBack:NO];
         }
-        //③开始刷新动画
-        else {
+        //③开始刷新，回弹动画
+        else if (shouldDo) {
             self.refreshing = YES;
+            [self animateHeight:MaxHeight time:0.0005];
         }
     }else {
         //④高度不变
-        if (pullProgress > self.maxHeight) {
-            frame.size.height = self.maxHeight;
+        if (pullProgress > MaxHeight) {
+            frame.size.height = MaxHeight;
             frame.origin.y = -pullProgress;
         }
         //⑤高度减小
-        else if (pullProgress > self.minHeight) {
+        else if (pullProgress > MinHeight) {
             frame.size.height = pullProgress;
             frame.origin.y = -frame.size.height;
         }
         //⑥刷新状态下回弹需停顿
-        else if (_pullProgress > self.minHeight) {
-            [self superviewScrollTo:-self.minHeight];
-            frame.size.height = self.minHeight;
+        else if (_pullProgress > MinHeight) {
+            [self superviewScrollTo:-MinHeight];
+            frame.size.height = MinHeight;
             frame.origin.y = -frame.size.height;
         }
     }
@@ -109,9 +113,9 @@ const NSTimeInterval LPRefreshAnimateDuration = 0.5;
 - (void)animateHeight:(CGFloat)animateH time:(NSTimeInterval)t
 {
     //橡皮筋回弹
-    if (animateH >= self.minHeight+15) {
+    if (animateH >= MinHeight+15) {
         animateH -= 0.7;
-        if (animateH <= self.minHeight+25) t += 0.0002;
+        if (animateH <= MinHeight+25) t += 0.0002;
         [self drawHeight:animateH isBack:YES];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(t * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self animateHeight:animateH time:t];
@@ -138,7 +142,7 @@ const NSTimeInterval LPRefreshAnimateDuration = 0.5;
     CGContextSaveGState(ctx);
     
     //拉伸度
-    CGFloat s = (h-self.minHeight) / (self.maxHeight-self.minHeight);
+    CGFloat s = (h-MinHeight) / (MaxHeight-MinHeight);
     
     // ①绘制橡皮筋部分
     //阴影颜色
@@ -200,23 +204,24 @@ const NSTimeInterval LPRefreshAnimateDuration = 0.5;
 {
     self = [super init];
     if (self) {
-        self.bounds = CGRectMake(0, 0, 0, self.minHeight);
+        self.bounds = CGRectMake(0, 0, 0, MinHeight);
         self.clipsToBounds = YES;
+        
         //图层
         drawLayer = [CALayer layer];
-        CGFloat wide = self.minHeight-2*LPRefreshMargin;
-        drawLayer.frame = CGRectMake(0, 0, wide, self.maxHeight);
+        CGFloat wide = MinHeight-2*LPRefreshMargin;
+        drawLayer.frame = CGRectMake(0, 0, wide, MaxHeight);
         [self.layer addSublayer:drawLayer];
         drawLayer.shadowRadius = 1;
         drawLayer.shadowOffset = CGSizeMake(0, 1);
         drawLayer.shadowOpacity = 0.1;
         
         //绘制大圆
-        [self drawHeight:self.minHeight isBack:NO];
+        [self drawHeight:MinHeight isBack:NO];
         
         //指示器
         indicatorView = [UIActivityIndicatorView new];
-        indicatorView.center = CGPointMake(0, self.minHeight/2.l);
+        indicatorView.center = CGPointMake(0, MinHeight/2.l);
         indicatorView.color = [UIColor grayColor];
         [self addSubview:indicatorView];
         
@@ -263,15 +268,6 @@ const NSTimeInterval LPRefreshAnimateDuration = 0.5;
     capionLabel.center = center;
 }
 
-- (CGFloat)maxHeight
-{
-    return 90;
-}
-
-- (CGFloat)minHeight
-{
-    return 36;
-}
 
 #pragma mark - 辅助方法
 //滚动
