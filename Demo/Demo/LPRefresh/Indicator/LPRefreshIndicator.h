@@ -31,4 +31,7 @@
 ///下拉进度
 @property (assign, nonatomic) CGFloat pullProgress;
 
+///刷新结果
+- (void)refreshSuccess:(BOOL)isSuccess;
+
 @end

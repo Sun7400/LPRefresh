@@ -21,20 +21,44 @@ const NSTimeInterval LPRefreshAnimateDuration = 0.5;
 #pragma mark - 设置状态
 - (void)setRefreshing:(BOOL)refreshing
 {
-    if (!refreshing && _refreshing) {
-        [indicatorView stopAnimating];
-        [UIView animateWithDuration:0.5 animations:^{
-            capionLabel.alpha = 1;
-        } completion:^(BOOL finished) {
-            //滚动到顶部
-            [self superviewScrollTo:0];
-        }];
-    }
-    else if (refreshing && !_refreshing) {
+    if (refreshing && !_refreshing) {
         //回弹动画
         [self animateHeight:self.maxHeight time:0.0005];
     }
     _refreshing = refreshing;
+}
+
+#pragma mark - 结束刷新
+- (void)refreshSuccess:(BOOL)isSuccess
+{
+    UIImage *img;//提示图标
+    NSString *capion;//提示文字
+    if (isSuccess) {
+        img = [UIImage imageNamed:@"LPRefresh.bundle/LPRefresh_ok"];
+        capion = @"刷新成功";
+    }else{
+        img = [UIImage imageNamed:@"LPRefresh.bundle/LPRefresh_fail"];
+        capion = @"刷新失败";
+    }
+    //提示图标
+    NSTextAttachment *attachment = [NSTextAttachment new];
+    attachment.image = img;
+    attachment.bounds = CGRectMake(0, -2, img.size.width, img.size.height);
+    NSAttributedString *imgAttrStr = [NSAttributedString attributedStringWithAttachment:attachment];
+    //提示文字
+    NSString *str = [NSString stringWithFormat:@" %@", capion];
+    NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:str];
+    [attrString insertAttributedString:imgAttrStr atIndex:0];
+    capionLabel.attributedText = attrString;
+    
+    //结束动画
+    self.refreshing = NO;
+    [indicatorView stopAnimating];
+    [UIView animateWithDuration:0.6 animations:^{
+        capionLabel.alpha = 1;
+    } completion:^(BOOL finished) {
+        [self superviewScrollTo:0];//滚动到顶部
+    }];
 }
 
 #pragma mark - 设置拉伸进度
@@ -100,16 +124,7 @@ const NSTimeInterval LPRefreshAnimateDuration = 0.5;
     }
 }
 
-//滚动
-- (void)superviewScrollTo:(CGFloat)offsetY
-{
-    UIScrollView *scrollView = (UIScrollView *)[self superview];
-    if (scrollView) {
-        CGPoint offset = scrollView.contentOffset;
-        offset.y = offsetY;
-        [scrollView setContentOffset:offset animated:YES];
-    }
-}
+
 
 #pragma mark - 绘制
 - (void)drawHeight:(CGFloat)h isBack:(BOOL)isBack
@@ -127,10 +142,10 @@ const NSTimeInterval LPRefreshAnimateDuration = 0.5;
     
     // ①绘制橡皮筋部分
     //阴影颜色
-    drawLayer.shadowColor = [UIColor colorWithWhite:0 alpha:.2+.8*s].CGColor;
+    drawLayer.shadowColor = [UIColor colorWithWhite:0 alpha:.4+.6*s].CGColor;
     //填充颜色
     CGColorRef color = LPRefreshMainColor(1).CGColor;
-    if (self.refreshing) color = LPRefreshMainColor(.2+.8*s).CGColor;
+    if (self.refreshing) color = LPRefreshMainColor(.4+.6*s).CGColor;
     CGContextSetFillColorWithColor(ctx, color);
     //大圆半径
     CGFloat w = size.width / 2.l;
@@ -214,16 +229,6 @@ const NSTimeInterval LPRefreshAnimateDuration = 0.5;
         capionLabel.textAlignment = NSTextAlignmentCenter;
         capionLabel.font = [UIFont systemFontOfSize:14];
         [self addSubview:capionLabel];
-        //提示图标
-        NSTextAttachment *attachment = [NSTextAttachment new];
-        UIImage *img = [UIImage imageNamed:@"LPRefresh.bundle/LPRefresh_ok"];
-        attachment.image = img;
-        attachment.bounds = CGRectMake(0, -2, img.size.width, img.size.height);
-        NSAttributedString *imgAttrStr = [NSAttributedString attributedStringWithAttachment:attachment];
-        //提示文字
-        NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:@" 刷新成功"];
-        [attrString insertAttributedString:imgAttrStr atIndex:0];
-        capionLabel.attributedText = attrString;
     }
     return self;
 }
@@ -266,6 +271,18 @@ const NSTimeInterval LPRefreshAnimateDuration = 0.5;
 - (CGFloat)minHeight
 {
     return 36;
+}
+
+#pragma mark - 辅助方法
+//滚动
+- (void)superviewScrollTo:(CGFloat)offsetY
+{
+    UIScrollView *scrollView = (UIScrollView *)[self superview];
+    if (scrollView) {
+        CGPoint offset = scrollView.contentOffset;
+        offset.y = offsetY;
+        [scrollView setContentOffset:offset animated:YES];
+    }
 }
 
 @end

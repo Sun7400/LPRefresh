@@ -38,9 +38,16 @@
     }];
 }
 
-- (IBAction)endRefresh:(UIButton *)sender {
-    //结束刷新
-    [scollView endRefreshing];
+
+- (IBAction)success:(id)sender {
+    //刷新成功
+    [scollView endRefreshingSuccess];
 }
+
+- (IBAction)fail:(id)sender {
+    //刷新失败
+    [scollView endRefreshingFail];
+}
+
 
 @end

@@ -97,10 +97,16 @@ static char LPRefreshIndicatorKey;
 
 
 #pragma mark - 结束刷新
-- (void)endRefreshing
+- (void)endRefreshingSuccess
 {
-    self.indicator.refreshing = NO;
-    NSLog(@"结束刷新");
+    [self.indicator refreshSuccess:YES];
+    NSLog(@"刷新成功");
+}
+
+- (void)endRefreshingFail
+{
+    [self.indicator refreshSuccess:NO];
+    NSLog(@"刷新失败");
 }
 
 @end

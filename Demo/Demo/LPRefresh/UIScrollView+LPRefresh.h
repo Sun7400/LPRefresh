@@ -23,7 +23,9 @@
 ///添加刷新事件
 - (void)addRefreshWithBlock:(void (^)())block;
 
-///结束刷新
-- (void)endRefreshing;
+///刷新成功
+- (void)endRefreshingSuccess;
+///刷新失败
+- (void)endRefreshingFail;
 
 @end

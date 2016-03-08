@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -70,7 +71,7 @@
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="dGw-Ax-nx7" secondAttribute="trailing" id="0Um-fO-8bd"/>
                                     <constraint firstItem="dGw-Ax-nx7" firstAttribute="centerY" secondItem="egd-z5-h8M" secondAttribute="centerY" id="78o-9q-Yny"/>
@@ -81,13 +82,13 @@
                                 </constraints>
                             </scrollView>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CGG-Fq-EqN">
-                                <rect key="frame" x="115" y="244" width="90" height="35"/>
+                                <rect key="frame" x="55" y="244" width="90" height="35"/>
                                 <color key="backgroundColor" red="1" green="0.44993157499999997" blue="0.053027900820000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="90" id="AZI-eb-0Jd"/>
                                     <constraint firstAttribute="height" constant="35" id="fyy-dQ-Rod"/>
                                 </constraints>
-                                <state key="normal" title="结束刷新">
+                                <state key="normal" title="刷新失败">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
@@ -96,7 +97,26 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="endRefresh:" destination="fxk-We-wcS" eventType="touchUpInside" id="4W7-BL-wFy"/>
+                                    <action selector="fail:" destination="fxk-We-wcS" eventType="touchUpInside" id="mVF-nZ-uO9"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q4u-ar-3sG">
+                                <rect key="frame" x="175" y="244" width="90" height="35"/>
+                                <color key="backgroundColor" red="1" green="0.44993157499999997" blue="0.053027900820000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="a0M-6Q-RI5"/>
+                                    <constraint firstAttribute="width" constant="90" id="iOr-uo-Ogi"/>
+                                </constraints>
+                                <state key="normal" title="刷新成功">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="success:" destination="fxk-We-wcS" eventType="touchUpInside" id="kxT-0w-UQC"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Created by 刘呵呵" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IV0-iA-BCS">
@@ -106,14 +126,16 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="IV0-iA-BCS" firstAttribute="centerX" secondItem="8Qa-w9-7KS" secondAttribute="centerX" id="0Ba-1d-5fl"/>
                             <constraint firstAttribute="trailingMargin" secondItem="egd-z5-h8M" secondAttribute="trailing" constant="-20" id="Emx-Sh-EHU"/>
                             <constraint firstItem="qQq-Qw-Qvo" firstAttribute="top" secondItem="IV0-iA-BCS" secondAttribute="bottom" constant="22" id="LHl-AZ-ja4"/>
+                            <constraint firstItem="q4u-ar-3sG" firstAttribute="centerY" secondItem="CGG-Fq-EqN" secondAttribute="centerY" id="NFa-Uu-ekW"/>
                             <constraint firstItem="egd-z5-h8M" firstAttribute="top" secondItem="ahT-YE-at8" secondAttribute="bottom" id="Oi3-gY-4T5"/>
                             <constraint firstItem="qQq-Qw-Qvo" firstAttribute="top" secondItem="egd-z5-h8M" secondAttribute="bottom" id="Ryl-i2-ctd"/>
-                            <constraint firstItem="CGG-Fq-EqN" firstAttribute="centerX" secondItem="8Qa-w9-7KS" secondAttribute="centerX" id="TdS-3K-k2X"/>
+                            <constraint firstItem="CGG-Fq-EqN" firstAttribute="trailing" secondItem="8Qa-w9-7KS" secondAttribute="centerX" constant="-15" id="TdS-3K-k2X"/>
+                            <constraint firstItem="q4u-ar-3sG" firstAttribute="leading" secondItem="8Qa-w9-7KS" secondAttribute="centerX" constant="15" id="VNT-1H-ZRX"/>
                             <constraint firstItem="CGG-Fq-EqN" firstAttribute="top" secondItem="ahT-YE-at8" secondAttribute="bottom" constant="180" id="fAX-BX-s3J"/>
                             <constraint firstItem="egd-z5-h8M" firstAttribute="leading" secondItem="8Qa-w9-7KS" secondAttribute="leadingMargin" constant="-20" id="yT9-PI-tlF"/>
                         </constraints>
