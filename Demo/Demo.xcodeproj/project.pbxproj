@@ -13,7 +13,6 @@
 		5D4D95F71C8D5B5400019515 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5D4D95F51C8D5B5400019515 /* Main.storyboard */; };
 		5D4D95F91C8D5B5400019515 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D4D95F81C8D5B5400019515 /* Assets.xcassets */; };
 		5D4D95FC1C8D5B5400019515 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5D4D95FA1C8D5B5400019515 /* LaunchScreen.storyboard */; };
-		5D4D960E1C8D5BC100019515 /* LPRefreshIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D4D96081C8D5BC100019515 /* LPRefreshIndicator.m */; };
 		5D4D960F1C8D5BC100019515 /* LPRefresh.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5D4D96091C8D5BC100019515 /* LPRefresh.bundle */; };
 		5D4D96101C8D5BC100019515 /* UIScrollView+LPRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D4D960C1C8D5BC100019515 /* UIScrollView+LPRefresh.m */; };
 /* End PBXBuildFile section */
@@ -29,8 +28,6 @@
 		5D4D95F81C8D5B5400019515 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5D4D95FB1C8D5B5400019515 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5D4D95FD1C8D5B5400019515 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5D4D96071C8D5BC100019515 /* LPRefreshIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPRefreshIndicator.h; sourceTree = "<group>"; };
-		5D4D96081C8D5BC100019515 /* LPRefreshIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPRefreshIndicator.m; sourceTree = "<group>"; };
 		5D4D96091C8D5BC100019515 /* LPRefresh.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = LPRefresh.bundle; sourceTree = "<group>"; };
 		5D4D960A1C8D5BC100019515 /* LPRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPRefresh.h; sourceTree = "<group>"; };
 		5D4D960B1C8D5BC100019515 /* UIScrollView+LPRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+LPRefresh.h"; sourceTree = "<group>"; };
@@ -92,22 +89,12 @@
 		5D4D96031C8D5BC100019515 /* LPRefresh */ = {
 			isa = PBXGroup;
 			children = (
-				5D4D96041C8D5BC100019515 /* Indicator */,
 				5D4D96091C8D5BC100019515 /* LPRefresh.bundle */,
 				5D4D960A1C8D5BC100019515 /* LPRefresh.h */,
 				5D4D960B1C8D5BC100019515 /* UIScrollView+LPRefresh.h */,
 				5D4D960C1C8D5BC100019515 /* UIScrollView+LPRefresh.m */,
 			);
 			path = LPRefresh;
-			sourceTree = "<group>";
-		};
-		5D4D96041C8D5BC100019515 /* Indicator */ = {
-			isa = PBXGroup;
-			children = (
-				5D4D96071C8D5BC100019515 /* LPRefreshIndicator.h */,
-				5D4D96081C8D5BC100019515 /* LPRefreshIndicator.m */,
-			);
-			path = Indicator;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -181,7 +168,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5D4D960E1C8D5BC100019515 /* LPRefreshIndicator.m in Sources */,
 				5D4D96101C8D5BC100019515 /* UIScrollView+LPRefresh.m in Sources */,
 				5D4D95F41C8D5B5400019515 /* ViewController.m in Sources */,
 				5D4D95F11C8D5B5400019515 /* AppDelegate.m in Sources */,
@@ -336,6 +322,7 @@
 				5D4D96021C8D5B5400019515 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
