@@ -10,7 +10,7 @@
 //  下载链接 https://github.com/SwiftLiu/LPRefresh.git
 
 #import "ViewController.h"
-#import "UIScrollView+LPRefresh.h"
+#import "LPRefresh.h"
 
 @interface ViewController ()
 {

@@ -45,7 +45,7 @@ const NSTimeInterval LPRefreshAnimateDuration = 0.5;
     if (!refreshing) {
         //①开始拖出
         if (pullProgress <= MinHeight) {
-            if (_pullProgress<=0 && pullProgress>_pullProgress) {
+            if (_pullProgress<=3 && pullProgress>_pullProgress) {
                 shouldDo = YES;
                 capionLabel.alpha = 0;
                 [self drawHeight:MinHeight isBack:NO];//绘制圆

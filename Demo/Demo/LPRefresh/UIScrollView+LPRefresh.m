@@ -9,7 +9,7 @@
 //  作者邮箱 1062014109@qq.com
 //  下载链接 https://github.com/SwiftLiu/LPRefresh.git
 
-#import "UIScrollView+LPRefresh.h"
+#import "LPRefresh.h"
 #import <objc/runtime.h>
 #import "LPRefreshIndicator.h"
 
