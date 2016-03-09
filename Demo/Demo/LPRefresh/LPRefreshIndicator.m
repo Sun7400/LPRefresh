@@ -100,7 +100,7 @@ const NSTimeInterval LPRefreshAnimateDuration = 0.5;
         animateH -= 0.7;
         if (animateH <= MinHeight+25) t += 0.0002;
         [self drawHeight:animateH isBack:YES];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(t * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self animateHeight:animateH time:t];
         });
     }
