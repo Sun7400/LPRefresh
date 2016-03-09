@@ -33,11 +33,11 @@ static char LPRefreshIndicatorKey;
         [self addSubview:indicator];
     }
 }
-
 - (LPRefreshIndicator *)indicator
 {
     return objc_getAssociatedObject(self, &LPRefreshIndicatorKey);
 }
+
 
 #pragma mark - 重写
 - (void)setFrame:(CGRect)frame
@@ -49,6 +49,7 @@ static char LPRefreshIndicatorKey;
 {
     [super setBounds:bounds];
 }
+
 
 #pragma mark - 添加刷新事件
 - (void)addRefreshWithBlock:(void (^)())block
@@ -95,13 +96,11 @@ static char LPRefreshIndicatorKey;
 - (void)endRefreshingSuccess
 {
     [self.indicator refreshSuccess:YES];
-    NSLog(@"刷新成功");
 }
 
 - (void)endRefreshingFail
 {
     [self.indicator refreshSuccess:NO];
-    NSLog(@"刷新失败");
 }
 
 @end

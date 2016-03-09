@@ -10,16 +10,10 @@
 //  下载链接 https://github.com/SwiftLiu/LPRefresh.git
 
 #import <UIKit/UIKit.h>
-#import "LPRefreshIndicator.h"
-
-@class LPRefreshIndicator;
 
 // UIScrollView延展，UITableView也可用
 // 不建议使用模拟器运行，模拟器动画渲染效果不佳
 @interface UIScrollView (LPRefresh)
-
-//刷新主件
-@property (strong, nonatomic) LPRefreshIndicator *indicator;
 
 ///添加刷新事件
 - (void)addRefreshWithBlock:(void (^)())block;
