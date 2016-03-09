@@ -90,15 +90,6 @@ static char LPRefreshIndicatorKey;
     [self removeObserver:self forKeyPath:KEY_PATH context:nil];
 }
 
-//- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
-//{
-//    if (self.indicator.refreshing) {
-//        CGPoint offset = self.contentOffset;
-//        offset.y = -MinHeight;
-//        [self setContentOffset:offset animated:YES];//滚动
-//    }
-//}
-
 
 #pragma mark - 结束刷新
 - (void)endRefreshingSuccess

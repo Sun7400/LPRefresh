@@ -28,6 +28,11 @@ const NSTimeInterval LPRefreshAnimateDuration = 0.5;
     BOOL refreshing;
     //执行控制
     BOOL shouldDo;
+    
+    //是否在进行回弹动画
+    BOOL backing;
+    //回弹动画结束立即执行结束的动画
+    void (^backCompleteBlock)();
 }
 @end
 
@@ -89,12 +94,13 @@ const NSTimeInterval LPRefreshAnimateDuration = 0.5;
 #pragma mark - 橡皮筋自动回弹动画
 - (void)animateHeight:(CGFloat)animateH time:(NSTimeInterval)t
 {
+    backing = YES;//回弹动画执行中
     //橡皮筋回弹
     if (animateH >= MinHeight+15) {
         animateH -= 0.7;
         if (animateH <= MinHeight+25) t += 0.0002;
         [self drawHeight:animateH isBack:YES];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(t * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.05 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self animateHeight:animateH time:t];
         });
     }
@@ -102,11 +108,37 @@ const NSTimeInterval LPRefreshAnimateDuration = 0.5;
     else{
         drawLayer.contents = nil;
         [indicatorView startAnimating];
+        
+        backing = NO;//回弹动画执行结束
+        if (backCompleteBlock) {
+            backCompleteBlock();
+            backCompleteBlock = nil;
+        }
     }
 }
 
 #pragma mark - 结束刷新
 - (void)refreshSuccess:(BOOL)isSuccess
+{
+    if (refreshing) {
+        //正在进行回弹动画时，结束动画放在回弹动画结束后执行
+        if (backing) {
+            __weak LPRefreshIndicator *weakSelf = self;
+            backCompleteBlock = ^{
+                refreshing = NO;
+                [weakSelf endAnimate:isSuccess];
+            };
+        }
+        //未进行回弹动画时，直接执行结束动画
+        else {
+            refreshing = NO;
+            [self endAnimate:isSuccess];
+        }
+    }
+}
+
+//结束动画
+- (void)endAnimate:(BOOL)isSuccess
 {
     UIImage *img;//提示图标
     NSString *capion;//提示文字
@@ -130,7 +162,6 @@ const NSTimeInterval LPRefreshAnimateDuration = 0.5;
     
     //结束动画
     [indicatorView stopAnimating];
-    refreshing = NO;
     [UIView animateWithDuration:0.6 animations:^{
         capionLabel.alpha = 1;
     } completion:^(BOOL finished) {
