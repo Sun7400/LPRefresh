@@ -30,7 +30,6 @@
 		5D4D95FB1C8D5B5400019515 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5D4D95FD1C8D5B5400019515 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5D4D96091C8D5BC100019515 /* LPRefresh.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = LPRefresh.bundle; sourceTree = "<group>"; };
-		5D4D960A1C8D5BC100019515 /* LPRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPRefresh.h; sourceTree = "<group>"; };
 		5D4D960B1C8D5BC100019515 /* UIScrollView+LPRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+LPRefresh.h"; sourceTree = "<group>"; };
 		5D4D960C1C8D5BC100019515 /* UIScrollView+LPRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+LPRefresh.m"; sourceTree = "<group>"; };
 		5D532BE01C8E715B003F3D7D /* LPRefreshIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPRefreshIndicator.h; sourceTree = "<group>"; };
@@ -93,7 +92,6 @@
 			isa = PBXGroup;
 			children = (
 				5D4D96091C8D5BC100019515 /* LPRefresh.bundle */,
-				5D4D960A1C8D5BC100019515 /* LPRefresh.h */,
 				5D4D960B1C8D5BC100019515 /* UIScrollView+LPRefresh.h */,
 				5D4D960C1C8D5BC100019515 /* UIScrollView+LPRefresh.m */,
 				5D532BE01C8E715B003F3D7D /* LPRefreshIndicator.h */,
