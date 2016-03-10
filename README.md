@@ -2,6 +2,7 @@
 模仿QQ橡皮筋刷新的控件，动画流畅、渲染高效。UIScrollView延展，只需一行代码。
 
 下载地址 https://github.com/SwiftLiu/LPRefresh.git
+https://github.com/SwiftLiu/LPRefresh/blob/master/image.png?raw=true
 
 ####初始化
 ```objc 
