@@ -13,9 +13,9 @@
 		5D4D95F71C8D5B5400019515 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5D4D95F51C8D5B5400019515 /* Main.storyboard */; };
 		5D4D95F91C8D5B5400019515 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5D4D95F81C8D5B5400019515 /* Assets.xcassets */; };
 		5D4D95FC1C8D5B5400019515 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5D4D95FA1C8D5B5400019515 /* LaunchScreen.storyboard */; };
-		5D4D960F1C8D5BC100019515 /* LPRefresh.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5D4D96091C8D5BC100019515 /* LPRefresh.bundle */; };
-		5D4D96101C8D5BC100019515 /* UIScrollView+LPRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D4D960C1C8D5BC100019515 /* UIScrollView+LPRefresh.m */; };
-		5D532BE21C8E715B003F3D7D /* LPRefreshIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D532BE11C8E715B003F3D7D /* LPRefreshIndicator.m */; };
+		5D6F3AD81C91653A0053D498 /* LPRefresh.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5D6F3AD31C91653A0053D498 /* LPRefresh.bundle */; };
+		5D6F3AD91C91653A0053D498 /* LPRefreshIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D6F3AD61C91653A0053D498 /* LPRefreshIndicator.m */; };
+		5D6F3ADA1C91653A0053D498 /* UIScrollView+LPRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D6F3AD71C91653A0053D498 /* UIScrollView+LPRefresh.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,11 +29,11 @@
 		5D4D95F81C8D5B5400019515 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5D4D95FB1C8D5B5400019515 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5D4D95FD1C8D5B5400019515 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5D4D96091C8D5BC100019515 /* LPRefresh.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = LPRefresh.bundle; sourceTree = "<group>"; };
-		5D4D960B1C8D5BC100019515 /* LPRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPRefresh.h; sourceTree = "<group>"; };
-		5D4D960C1C8D5BC100019515 /* UIScrollView+LPRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+LPRefresh.m"; sourceTree = "<group>"; };
-		5D532BE01C8E715B003F3D7D /* LPRefreshIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPRefreshIndicator.h; sourceTree = "<group>"; };
-		5D532BE11C8E715B003F3D7D /* LPRefreshIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPRefreshIndicator.m; sourceTree = "<group>"; };
+		5D6F3AD31C91653A0053D498 /* LPRefresh.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = LPRefresh.bundle; sourceTree = "<group>"; };
+		5D6F3AD41C91653A0053D498 /* LPRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPRefresh.h; sourceTree = "<group>"; };
+		5D6F3AD51C91653A0053D498 /* LPRefreshIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPRefreshIndicator.h; sourceTree = "<group>"; };
+		5D6F3AD61C91653A0053D498 /* LPRefreshIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPRefreshIndicator.m; sourceTree = "<group>"; };
+		5D6F3AD71C91653A0053D498 /* UIScrollView+LPRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+LPRefresh.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,7 +68,7 @@
 			children = (
 				5D4D95EF1C8D5B5400019515 /* AppDelegate.h */,
 				5D4D95F01C8D5B5400019515 /* AppDelegate.m */,
-				5D4D96031C8D5BC100019515 /* LPRefresh */,
+				5D6F3AD21C91653A0053D498 /* LPRefresh */,
 				5D4D95F21C8D5B5400019515 /* ViewController.h */,
 				5D4D95F31C8D5B5400019515 /* ViewController.m */,
 				5D4D95F51C8D5B5400019515 /* Main.storyboard */,
@@ -88,14 +88,14 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		5D4D96031C8D5BC100019515 /* LPRefresh */ = {
+		5D6F3AD21C91653A0053D498 /* LPRefresh */ = {
 			isa = PBXGroup;
 			children = (
-				5D4D96091C8D5BC100019515 /* LPRefresh.bundle */,
-				5D4D960B1C8D5BC100019515 /* LPRefresh.h */,
-				5D4D960C1C8D5BC100019515 /* UIScrollView+LPRefresh.m */,
-				5D532BE01C8E715B003F3D7D /* LPRefreshIndicator.h */,
-				5D532BE11C8E715B003F3D7D /* LPRefreshIndicator.m */,
+				5D6F3AD31C91653A0053D498 /* LPRefresh.bundle */,
+				5D6F3AD41C91653A0053D498 /* LPRefresh.h */,
+				5D6F3AD71C91653A0053D498 /* UIScrollView+LPRefresh.m */,
+				5D6F3AD51C91653A0053D498 /* LPRefreshIndicator.h */,
+				5D6F3AD61C91653A0053D498 /* LPRefreshIndicator.m */,
 			);
 			path = LPRefresh;
 			sourceTree = "<group>";
@@ -160,7 +160,7 @@
 				5D4D95FC1C8D5B5400019515 /* LaunchScreen.storyboard in Resources */,
 				5D4D95F91C8D5B5400019515 /* Assets.xcassets in Resources */,
 				5D4D95F71C8D5B5400019515 /* Main.storyboard in Resources */,
-				5D4D960F1C8D5BC100019515 /* LPRefresh.bundle in Resources */,
+				5D6F3AD81C91653A0053D498 /* LPRefresh.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -171,11 +171,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5D532BE21C8E715B003F3D7D /* LPRefreshIndicator.m in Sources */,
-				5D4D96101C8D5BC100019515 /* UIScrollView+LPRefresh.m in Sources */,
 				5D4D95F41C8D5B5400019515 /* ViewController.m in Sources */,
 				5D4D95F11C8D5B5400019515 /* AppDelegate.m in Sources */,
+				5D6F3ADA1C91653A0053D498 /* UIScrollView+LPRefresh.m in Sources */,
 				5D4D95EE1C8D5B5400019515 /* main.m in Sources */,
+				5D6F3AD91C91653A0053D498 /* LPRefreshIndicator.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

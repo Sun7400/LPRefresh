@@ -11,7 +11,15 @@
 
 #import "LPRefreshIndicator.h"
 
+///主题颜色
 #define LPRefreshMainColor(_alpha) [UIColor colorWithWhite:0.7 alpha:_alpha]
+///图片路径
+#define LPRefreshSrcName(file) [@"LPRefresh.bundle" stringByAppendingPathComponent:file]
+
+///下拉到此偏移量开始拉伸
+const CGFloat LPBeganStretchOffset = 36;
+///下拉到此偏移量开始刷新
+const CGFloat LPBeganRefreshOffset = 90;
 
 const CGFloat LPRefreshMargin = 3;
 const NSTimeInterval LPRefreshAnimateDuration = 0.5;
@@ -24,6 +32,7 @@ const NSTimeInterval LPRefreshAnimateDuration = 0.5;
     UIActivityIndicatorView *indicatorView;
     //提示标签
     UILabel *capionLabel;
+    
     //状态
     BOOL refreshing;
     //执行控制
@@ -33,62 +42,53 @@ const NSTimeInterval LPRefreshAnimateDuration = 0.5;
     BOOL backing;
     //回弹动画结束立即执行结束的动画
     void (^backCompleteBlock)();
+    
+    //刷新成功提示
+    NSAttributedString *capionSuccess;
+    //刷新失败提示
+    NSAttributedString *capionFail;
 }
 @end
 
 @implementation LPRefreshIndicator
 
-#pragma mark - 设置拉伸进度
+#pragma mark - 设置下拉偏移量
 - (void)setPullProgress:(CGFloat)pullProgress
 {
-    CGRect frame = self.frame;
+    if (pullProgress == _pullProgress) return;
     if (!refreshing) {
         //①开始拖出
-        if (pullProgress <= MinHeight) {
-            if (_pullProgress<=3 && pullProgress>_pullProgress) {
+        if (pullProgress <= LPBeganStretchOffset) {
+            if (_pullProgress<=3 && pullProgress>3) {
                 shouldDo = YES;
                 capionLabel.alpha = 0;
-                [self drawHeight:MinHeight isBack:NO];//绘制圆
+                [self drawHeight:LPBeganStretchOffset];//绘制圆
             }
         }
         //②拉伸阶段
-        else if (pullProgress < MaxHeight) {
-            frame.size.height = pullProgress;
-            frame.origin.y = -frame.size.height;
-            if (shouldDo) [self drawHeight:pullProgress isBack:NO];//绘制橡皮筋
+        else if (pullProgress < LPBeganRefreshOffset) {
+            if (shouldDo) [self drawHeight:pullProgress];//绘制橡皮筋
         }
         //③开始刷新
-        else {
-            if (shouldDo) {
-                shouldDo = NO;
-                refreshing = YES;
-                if (_refreshBlock) _refreshBlock();//执行刷新代码
-                [self animateHeight:MaxHeight time:0.0005];//回弹动画
-            }
-            //高度不变
-            frame.size.height = MaxHeight;
-            frame.origin.y = -pullProgress;
-        }
-    }else {
-        //④高度不变
-        if (pullProgress > MaxHeight) {
-            frame.size.height = MaxHeight;
-            frame.origin.y = -pullProgress;
-        }
-        //⑤高度减小
-        else if (pullProgress > MinHeight) {
-            frame.size.height = pullProgress;
-            frame.origin.y = -frame.size.height;
-        }
-        //⑥刷新状态下回弹需停顿
-        else if (_pullProgress > MinHeight) {
-            [self superviewScrollTo:-MinHeight];//滚动
-            frame.size.height = MinHeight;
-            frame.origin.y = -frame.size.height;
+        else if (shouldDo) {
+            shouldDo = NO;
+            refreshing = YES;
+            [self animateHeight:LPBeganRefreshOffset time:0.0005];//回弹动画
+            if (_refreshBlock) _refreshBlock();//执行刷新代码
         }
     }
-    self.frame = frame;
+    //④刷新状态下回弹需停顿
+    else if (_pullProgress > LPBeganStretchOffset && pullProgress < LPBeganStretchOffset) {
+        [self superviewScrollTo:-LPBeganStretchOffset];//滚动
+        
+    }
     _pullProgress = pullProgress;
+    
+    //高度位置
+    CGRect frame = self.frame;
+    frame.size.height = MAX(LPBeganStretchOffset, pullProgress);
+    frame.origin.y = -frame.size.height;
+    self.frame = frame;
 }
 
 #pragma mark - 橡皮筋自动回弹动画
@@ -96,10 +96,10 @@ const NSTimeInterval LPRefreshAnimateDuration = 0.5;
 {
     backing = YES;//回弹动画执行中
     //橡皮筋回弹
-    if (animateH >= MinHeight+15) {
-        animateH -= 0.7;
-        if (animateH <= MinHeight+25) t += 0.0002;
-        [self drawHeight:animateH isBack:YES];
+    if (animateH >= LPBeganStretchOffset+15) {
+        animateH -= 1;
+        if (animateH <= LPBeganStretchOffset+25) t += 0.0002;
+        [self drawHeight:animateH];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(t * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self animateHeight:animateH time:t];
         });
@@ -140,39 +140,21 @@ const NSTimeInterval LPRefreshAnimateDuration = 0.5;
 //结束动画
 - (void)endAnimate:(BOOL)isSuccess
 {
-    UIImage *img;//提示图标
-    NSString *capion;//提示文字
-    if (isSuccess) {
-        img = [UIImage imageNamed:@"LPRefresh.bundle/LPRefresh_ok"];
-        capion = @"刷新成功";
-    }else{
-        img = [UIImage imageNamed:@"LPRefresh.bundle/LPRefresh_fail"];
-        capion = @"刷新失败";
-    }
-    //提示图标
-    NSTextAttachment *attachment = [NSTextAttachment new];
-    attachment.image = img;
-    attachment.bounds = CGRectMake(0, -2, img.size.width, img.size.height);
-    NSAttributedString *imgAttrStr = [NSAttributedString attributedStringWithAttachment:attachment];
-    //提示文字
-    NSString *str = [NSString stringWithFormat:@" %@", capion];
-    NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:str];
-    [attrString insertAttributedString:imgAttrStr atIndex:0];
-    capionLabel.attributedText = attrString;
-    
-    //结束动画
     [indicatorView stopAnimating];
-    [UIView animateWithDuration:0.6 animations:^{
+    
+    capionLabel.attributedText = [self endCapion:isSuccess];
+    [UIView animateWithDuration:0.8 animations:^{
         capionLabel.alpha = 1;
     } completion:^(BOOL finished) {
-        if (_pullProgress==MinHeight) [self superviewScrollTo:0];//滚动到顶部
+        if (finished && _pullProgress==LPBeganStretchOffset) {
+            [self superviewScrollTo:0];//滚动到顶部
+        }
     }];
 }
 
 #pragma mark - 绘制
-- (void)drawHeight:(CGFloat)h isBack:(BOOL)isBack
+- (void)drawHeight:(CGFloat)h
 {
-    if (h == _pullProgress) return;
     //初始化画布
     CGFloat scale = [UIScreen mainScreen].scale;
     CGSize size = drawLayer.bounds.size;
@@ -181,7 +163,7 @@ const NSTimeInterval LPRefreshAnimateDuration = 0.5;
     CGContextSaveGState(ctx);
     
     //拉伸度
-    CGFloat s = (h-MinHeight) / (MaxHeight-MinHeight);
+    CGFloat s = (h-LPBeganStretchOffset) / (LPBeganRefreshOffset-LPBeganStretchOffset);
     
     // ①绘制橡皮筋部分
     //阴影颜色
@@ -193,13 +175,13 @@ const NSTimeInterval LPRefreshAnimateDuration = 0.5;
     //大圆半径
     CGFloat w = size.width / 2.l;
     CGFloat R;
-    if (isBack) R = w*.7;
+    if (backing) R = w*.7;
     else R = w - w*.3*s;
     //坐标移动至大圆圆心
     CGContextTranslateCTM(ctx, w, w+LPRefreshMargin);
     //小圆半径
     CGFloat r;
-    if (isBack) r = R*.5 - (R*.5-3)*s;
+    if (backing) r = R*.5 - (R*.5-3)*s;
     else r = w - (w-3)*s;
     //小圆圆心
     CGPoint o = CGPointMake(0, h-w-r-LPRefreshMargin*2);
@@ -243,24 +225,21 @@ const NSTimeInterval LPRefreshAnimateDuration = 0.5;
 {
     self = [super init];
     if (self) {
-        self.bounds = CGRectMake(0, 0, 0, MinHeight);
+        self.bounds = CGRectMake(0, 0, 0, LPBeganStretchOffset);
         self.clipsToBounds = YES;
         
         //图层
         drawLayer = [CALayer layer];
-        CGFloat wide = MinHeight-2*LPRefreshMargin;
-        drawLayer.frame = CGRectMake(0, 0, wide, MaxHeight);
+        CGFloat wide = LPBeganStretchOffset-2*LPRefreshMargin;
+        drawLayer.frame = CGRectMake(0, 0, wide, LPBeganRefreshOffset);
         [self.layer addSublayer:drawLayer];
         drawLayer.shadowRadius = 1;
         drawLayer.shadowOffset = CGSizeMake(0, 1);
         drawLayer.shadowOpacity = 0.1;
         
-        //绘制大圆
-        [self drawHeight:MinHeight isBack:NO];
-        
         //指示器
         indicatorView = [UIActivityIndicatorView new];
-        indicatorView.center = CGPointMake(0, MinHeight/2.l);
+        indicatorView.center = CGPointMake(0, LPBeganStretchOffset/2.l);
         indicatorView.color = [UIColor grayColor];
         [self addSubview:indicatorView];
         
@@ -318,6 +297,39 @@ const NSTimeInterval LPRefreshAnimateDuration = 0.5;
         offset.y = offsetY;
         [scrollView setContentOffset:offset animated:YES];
     }
+}
+
+//提示文字
+- (NSAttributedString *)endCapion:(BOOL)isSuccess
+{
+    if (isSuccess) {
+        if (!capionSuccess) {
+            capionSuccess = [self attributedString:@"刷新成功"
+                                           imgName:LPRefreshSrcName(@"LPRefresh_ok")];
+        }
+        return capionSuccess;
+    }else {
+        if (!capionFail) {
+            capionFail = [self attributedString:@"刷新失败"
+                                        imgName:LPRefreshSrcName(@"LPRefresh_fail")];
+        }
+        return capionFail;
+    }
+}
+
+- (NSAttributedString *)attributedString:(NSString *)capion imgName:(NSString *)imgName
+{
+    //提示图标
+    NSTextAttachment *attachment = [NSTextAttachment new];
+    attachment.image = [UIImage imageNamed:imgName];
+    CGSize size = attachment.image.size;
+    attachment.bounds = CGRectMake(0, -2.5l, size.width, size.height);
+    NSAttributedString *imgAttrStr = [NSAttributedString attributedStringWithAttachment:attachment];
+    //提示文字
+    NSString *str = [NSString stringWithFormat:@" %@", capion];
+    NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithString:str];
+    [attrString insertAttributedString:imgAttrStr atIndex:0];
+    return attrString;
 }
 
 @end

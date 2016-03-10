@@ -1,6 +1,0 @@
-framework module LPRefresh {
-  umbrella header "LPRefresh.h"
-
-  export *
-  module * { export * }
-}

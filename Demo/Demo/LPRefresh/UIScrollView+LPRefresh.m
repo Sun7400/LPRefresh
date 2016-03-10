@@ -42,12 +42,26 @@ static char LPRefreshIndicatorKey;
 #pragma mark - 重写
 - (void)setFrame:(CGRect)frame
 {
+    if (self.frame.size.width != frame.size.width) {
+        [self centerSub:frame.size.width];
+    }
     [super setFrame:frame];
 }
 
 - (void)setBounds:(CGRect)bounds
 {
+    if (self.bounds.size.width != bounds.size.width) {
+        [self centerSub:bounds.size.width];
+    }
     [super setBounds:bounds];
+}
+//indicator居中
+- (void)centerSub:(CGFloat)width
+{
+    CGRect frame = self.indicator.frame;
+    frame.size.width = width;
+    frame.origin.x = (width - frame.size.width) / 2.l;
+    self.indicator.frame = frame;
 }
 
 
@@ -67,28 +81,22 @@ static char LPRefreshIndicatorKey;
     //添加观察者，监听contentOffset
     [self addObserver:self
            forKeyPath:KEY_PATH
-              options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld
+              options:NSKeyValueObservingOptionNew
               context:nil];
 }
 
-//监听实现
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context
+- (void)didChangeValueForKey:(NSString *)key
 {
-    if ([keyPath isEqualToString:KEY_PATH]) {
-        //获取offset
-        CGPoint newPoint;
-        [change[@"new"] getValue:&newPoint];
-        CGFloat new = -newPoint.y;
-        
-        //下拉进度
-        if (new >= 0) self.indicator.pullProgress = new;
+    //下拉进度
+    if ([key isEqualToString:KEY_PATH] && self.contentOffset.y <= 0) {
+        self.indicator.pullProgress = -self.contentOffset.y;
     }
 }
 
 //移除观察者
 - (void)dealloc
 {
-    [self removeObserver:self forKeyPath:KEY_PATH context:nil];
+//    [self removeObserver:self forKeyPath:KEY_PATH context:nil];
 }
 
 

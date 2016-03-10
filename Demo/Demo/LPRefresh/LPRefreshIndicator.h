@@ -11,11 +11,6 @@
 
 #import <UIKit/UIkit.h>
 
-///最小高度
-#define MinHeight 36
-///最大高度，即开始刷新的高度
-#define MaxHeight 90
-
 @interface LPRefreshIndicator : UIView
 
 ///下拉进度
