@@ -32,6 +32,8 @@ const NSTimeInterval LPRefreshAnimateDuration = 0.5;
     UIActivityIndicatorView *indicatorView;
     //提示标签
     UILabel *capionLabel;
+    //指示器图标
+    UIImage *image;
     
     //状态
     BOOL refreshing;
@@ -73,7 +75,7 @@ const NSTimeInterval LPRefreshAnimateDuration = 0.5;
         else if (shouldDo) {
             shouldDo = NO;
             refreshing = YES;
-            [self animateHeight:LPBeganRefreshOffset time:0.0005];//回弹动画
+            [self backAnimate:LPBeganRefreshOffset];//回弹动画
             if (_refreshBlock) _refreshBlock();//执行刷新代码
         }
     }
@@ -92,16 +94,17 @@ const NSTimeInterval LPRefreshAnimateDuration = 0.5;
 }
 
 #pragma mark - 橡皮筋自动回弹动画
-- (void)animateHeight:(CGFloat)animateH time:(NSTimeInterval)t
+- (void)backAnimate:(CGFloat)animateH
 {
     backing = YES;//回弹动画执行中
     //橡皮筋回弹
-    if (animateH >= LPBeganStretchOffset+15) {
-        animateH -= 1;
-        if (animateH <= LPBeganStretchOffset+25) t += 0.0002;
+    CGFloat endOffset = LPBeganStretchOffset+15;//回弹结束偏移量
+    if (animateH >= endOffset) {
+        animateH -= 4;
         [self drawHeight:animateH];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(t * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self animateHeight:animateH time:t];
+        //循环调用
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.015 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self backAnimate:animateH];
         });
     }
     //显示指示器
@@ -137,7 +140,7 @@ const NSTimeInterval LPRefreshAnimateDuration = 0.5;
     }
 }
 
-//结束动画
+#pragma mark - 结束动画
 - (void)endAnimate:(BOOL)isSuccess
 {
     [indicatorView stopAnimating];
@@ -156,33 +159,28 @@ const NSTimeInterval LPRefreshAnimateDuration = 0.5;
 - (void)drawHeight:(CGFloat)h
 {
     //初始化画布
-    CGFloat scale = [UIScreen mainScreen].scale;
+    CGFloat screenScale = [UIScreen mainScreen].scale;
     CGSize size = drawLayer.bounds.size;
-    UIGraphicsBeginImageContextWithOptions(size, NO, scale);
+    UIGraphicsBeginImageContextWithOptions(size, NO, screenScale);
     CGContextRef ctx = UIGraphicsGetCurrentContext();
     CGContextSaveGState(ctx);
     
     //拉伸度
     CGFloat s = (h-LPBeganStretchOffset) / (LPBeganRefreshOffset-LPBeganStretchOffset);
-    
     // ①绘制橡皮筋部分
     //阴影颜色
-    drawLayer.shadowColor = [UIColor colorWithWhite:0 alpha:.4+.6*s].CGColor;
+    drawLayer.shadowColor = [UIColor colorWithWhite:0 alpha:.6+.4*s].CGColor;
     //填充颜色
     CGColorRef color = LPRefreshMainColor(1).CGColor;
-    if (refreshing) color = LPRefreshMainColor(.4+.6*s).CGColor;
+    if (refreshing) color = LPRefreshMainColor(.6+.4*s).CGColor;
     CGContextSetFillColorWithColor(ctx, color);
     //大圆半径
     CGFloat w = size.width / 2.l;
-    CGFloat R;
-    if (backing) R = w*.7;
-    else R = w - w*.3*s;
+    CGFloat R = w - w*.3 * (backing?1:s);
     //坐标移动至大圆圆心
     CGContextTranslateCTM(ctx, w, w+LPRefreshMargin);
     //小圆半径
-    CGFloat r;
-    if (backing) r = R*.5 - (R*.5-3)*s;
-    else r = w - (w-3)*s;
+    CGFloat r = (backing?.4:1)*w*(1-s)+3*s;
     //小圆圆心
     CGPoint o = CGPointMake(0, h-w-r-LPRefreshMargin*2);
     //各曲线交点
@@ -204,11 +202,11 @@ const NSTimeInterval LPRefreshAnimateDuration = 0.5;
     CGContextDrawPath(ctx, kCGPathFill);
     
     // ②绘制图片
-    UIImage *image = [UIImage imageNamed:@"LPRefresh.bundle/LPRefresh_pull"];
     CGFloat wide = 2*R*0.7l;
     CGRect frame = CGRectMake(-wide/2.l, -wide/2.l, wide, wide);
     //旋转坐标系
     CGContextRotateCTM(ctx, s * M_PI*1.5);
+    if (!image) image = [UIImage imageNamed:LPRefreshSrcName(@"LPRefresh_pull")];
     [image drawInRect:frame];
     
     //提取绘制图像
