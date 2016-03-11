@@ -11,7 +11,7 @@
 
 若该静态库无法引用请自行设置framework搜索路径。
 
-同时Demo中也提供源代码，如果有好的建议需要交流，请发邮件到作者邮箱1062014109@qq.com。
+同时Demo中也提供源代码，如果有好的建议需要交流，请发邮件到作者邮箱1062014109@qq.com。如果觉得不错请右上角![加星](https://github.com/SwiftLiu/LPRefresh/blob/master/unstar.png?raw=true)一下。
 
 ####代码
 ######初始化
