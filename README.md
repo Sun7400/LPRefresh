@@ -5,7 +5,7 @@
 ![演示](https://github.com/SwiftLiu/LPRefresh/blob/master/movie_LPRefresh.gif?raw=true)
 
 ####使用说明
-[下载](https://github.com/SwiftLiu/LPRefresh.git)压缩包(包含Demo和静态库)，将静态库LPRefresh.frmaework和资源文件LPRefresh.bundle文件，直接导入工程。
+[下载](https://github.com/SwiftLiu/LPRefresh.git)压缩包（包含Demo和静态库），将静态库LPRefresh.frmaework和资源文件LPRefresh.bundle文件，直接导入工程。
 
 ![演示](https://github.com/SwiftLiu/LPRefresh/blob/master/guide.png?raw=true)
 
