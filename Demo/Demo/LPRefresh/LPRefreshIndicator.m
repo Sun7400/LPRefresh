@@ -100,10 +100,10 @@ const NSTimeInterval LPRefreshAnimateDuration = 0.5;
     //橡皮筋回弹
     CGFloat endOffset = LPBeganStretchOffset+15;//回弹结束偏移量
     if (animateH >= endOffset) {
-        animateH -= 4;
+        animateH -= 3;
         [self drawHeight:animateH];
         //循环调用
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.015 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.014 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self backAnimate:animateH];
         });
     }
@@ -112,7 +112,7 @@ const NSTimeInterval LPRefreshAnimateDuration = 0.5;
         drawLayer.contents = nil;
         [indicatorView startAnimating];
         
-        backing = NO;//回弹动画执行结束
+        backing = NO;//回弹动画结束
         if (backCompleteBlock) {
             backCompleteBlock();
             backCompleteBlock = nil;
