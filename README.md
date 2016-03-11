@@ -10,7 +10,7 @@
 ######安装
 如图下载.frmaework和.bundle文件，直接导入工程。若该静态库无法引用请自行设置framework搜索路径。
 
-![演示]()
+![演示](https://github.com/SwiftLiu/LPRefresh/blob/master/guide.png?raw=true)
 
 同时Demo中也提供源代码，如果有好多建议可发邮件给作者1062014109@qq.com。
 
