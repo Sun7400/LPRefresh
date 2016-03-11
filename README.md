@@ -6,12 +6,12 @@
 
 ####使用说明
 ######安装
-下载地址 https://github.com/SwiftLiu/LPRefresh.git
+[下载压缩包](https://github.com/SwiftLiu/LPRefresh.git)
 将.frmaework和.bundle文件，直接导入工程。若该静态库无法引用请自行设置framework搜索路径。
 
 ![演示](https://github.com/SwiftLiu/LPRefresh/blob/master/guide.png?raw=true)
 
-同时Demo中也提供源代码，如果有好多建议可发邮件给作者1062014109@qq.com。
+同时Demo中也提供源代码，如果有好多建议可发邮件到[作者邮箱](1062014109@qq.com)。
 
 ######初始化
 ```objc 
