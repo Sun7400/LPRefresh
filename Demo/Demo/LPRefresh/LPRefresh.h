@@ -11,11 +11,14 @@
 
 #import <UIKit/UIKit.h>
 
+/* ************** 缺点：
+① 在UITableView调用reloadSections:withRowAnimation:这个方法时，该组件会出现一些小问题，请尽量使用reloadData来刷新对应的UITableView。有好多建议可以联系作者，谢谢！
+************** */
+
 // UIScrollView延展，UITableView也可用
-// 不建议使用模拟器运行，模拟器动画渲染效果不佳
 @interface UIScrollView (LPRefresh)
 
-///添加刷新事件
+///添加刷新组件，block为刷新执行闭包
 - (void)addRefreshWithBlock:(void (^)())block;
 
 ///刷新成功
