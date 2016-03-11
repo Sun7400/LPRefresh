@@ -3,8 +3,8 @@
 
 下载地址 https://github.com/SwiftLiu/LPRefresh.git
 
-![截图](https://github.com/SwiftLiu/LPRefresh/blob/master/image.png?raw=true)
-![截图](https://github.com/SwiftLiu/LPRefresh/blob/master/image2.png?raw=true)
+![演示](https://github.com/SwiftLiu/LPRefresh/blob/master/movie_LPRefresh.gif?raw=true)
+
 ####初始化
 ```objc 
 // UIScrollView延展，UITableView也可用
