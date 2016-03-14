@@ -21,7 +21,7 @@
 ///添加刷新事件
 - (void)addRefreshWithBlock:(void (^)())block;
 ```
-######3.结束刷新
+######结束刷新
 ```objc
 ///刷新成功
 - (void)endRefreshingSuccess;
